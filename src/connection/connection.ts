@@ -11,41 +11,27 @@ import { TeamStats } from "../models/TeamStats";
 import dotenv from "dotenv";
 dotenv.config();
 
-
-// Se modificó la conexión a una base de datos local para poder realizar pruebas.
-
-const connection = new Sequelize(
-  
-  // process.env.DB_URL as string,
-  {
-    /* 
-    dialect: "postgres",
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-    }
-    */
-    dialect: "mysql",
-    database: process.env.database,
-    username: process.env.user,
-    password: process.env.password,
-    storage: ":memory:",
-    host: process.env.host,
-    models: [
-      Match,
-      Round,
-      Student,
-      StudentScore,
-      StudentTeam,
-      Teacher,
-      Team,
-      TeamScore,
-      TeamStats,
-    ],
-    logging: false,
-  });
+const connection = new Sequelize(process.env.DB_URL as string, {
+  dialect: "postgres",
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+  models: [
+    Match,
+    Round,
+    Student,
+    StudentScore,
+    StudentTeam,
+    Teacher,
+    Team,
+    TeamScore,
+    TeamStats,
+  ],
+  logging: false,
+});
 
 async function connectionDB() {
   try {
